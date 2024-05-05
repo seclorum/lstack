@@ -2,7 +2,14 @@
 CC      = cc
 CFLAGS  = -std=c11 -Wall -Wextra -O3 -mcx16 -pthread
 LDFLAGS = -pthread
+
+PLATFORM := $(shell uname)
+
+ifeq  ($(PLATFORM),Darwin)
+LDLIBS  = -latomic_ops
+else
 LDLIBS  = -latomic
+endif
 
 objects = main.o lstack.o sha1.o
 
